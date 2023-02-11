@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import ToDoList, ToDoItem
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 # Create your views here.
 # def list(request):
 #     lists = List.objects.all()
@@ -62,7 +62,7 @@ class ToDoItemCreateView(CreateView):
         return context
 
     def get_success_url(self):
-        return reverse("list", args=[self.object.todo_list_id])
+        return reverse("todo_list", args=[self.object.todo_list_id])
 
 
 class ItemUpdate(UpdateView):
@@ -81,4 +81,15 @@ class ItemUpdate(UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse("list", args=[self.object.todo_list_id])
+        return reverse("todo_list", args=[self.object.todo_list_id])
+class ToDoListDeleteView(DeleteView):
+    model = ToDoList
+    success_url = reverse_lazy("index")
+class ToDoItemDeleteView(DeleteView):
+    model = ToDoItem
+    def get_context_data(self, **kwargs):
+        context = super(ToDoItemDeleteView, self).get_context_data(**kwargs)
+        context["todo_list"] = self.object.todo_list
+        return context
+    def get_success_url(self):
+        return reverse_lazy("todo_list", args=[self.kwargs["list_id"]])

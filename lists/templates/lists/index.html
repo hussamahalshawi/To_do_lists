@@ -5,17 +5,20 @@
 <h3>All my lists</h3>
 {% endif %}
 <ul>
-{% for todolist in object_list %}
-<li>
-<div role="button" onclick="location.href='{% url "list" todolist.id %}'">
-{{ todolist.title }}
-</div>
-</li>
-{% empty %}
-<h4>You have no lists!</h4>
-{% endfor %}
+    {% for todolist in object_list %}
+    <li>
+        <div role="button" onclick="location.href='{% url "todo_list" todolist.id %}'">
+            {{ todolist.title }}
+        </div>
+        <p><div role="button" onclick='location.href="{% url 'list-Delete' todolist.id %}"'>
+                ✏ Delete
+            </div></p>
+    </li>
+    {% empty %}
+    <h4>You have no lists!</h4>
+    {% endfor %}
 </ul>
 <p>
-    <input value="Add a new list" type="button" onclick="location.href='{% url "list-add" %}'"/>
-    </p>
+    <input value="Add a new list" type="button" onclick="location.href='{% url "list-add" %}'" />
+</p>
 {% endblock %}

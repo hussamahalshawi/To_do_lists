@@ -11,16 +11,23 @@
             {% for todo in object_list %}
             <li>
                 <div>
-                    <div role="button" onclick="location.href='{% url "item-update" todo_list.id todo.id %}'">
+                    <div role="button" onclick='location.href="{% url 'item-update' todo_list.id todo.id %}"'>
                         {{ todo.title }}
                         (Due {{ todo.due_date | date:"l, F j"}})
                     </div>
+                    <p><div role="button" onclick='location.href="{% url 'item-Delete' todo_list.id todo.id %}"'>
+                            ✏ Delete
+                        </div></p>
                 </div>
             </li>
             {% empty %}
             <p>There are no to-do items in this list.</p>
             {% endfor %}
         </ul>
+
+        <p>
+            <input value="All list" type="button" onclick="location.href='{% url "index" %}'" />
+        </p>
         <p>
             <input value="Add a new item" type="button" onclick="location.href='{% url "item-add" todo_list.id %}'" />
         </p>

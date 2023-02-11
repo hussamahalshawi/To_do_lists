@@ -7,6 +7,6 @@
         {{ form.as_table }}
     </table>
     <input value="Submit" type="submit">
-    <input value="Cancel" type="button" onclick="location.href='{% url "list" todo_list.id %}'">
+    <input value="Cancel" type="button" onclick="location.href='{% url "todo_list" todo_list.id %}'">
 </form>
 {% endblock %}

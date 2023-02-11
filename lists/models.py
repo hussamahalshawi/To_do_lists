@@ -8,7 +8,7 @@ def expiry():
 class ToDoList(models.Model):
     title = models.CharField(max_length=100, unique=True)
     def get_absolute_url(self):
-        return reverse("list", args=[self.id])
+        return reverse("todo_list", args=[self.id])
 
     def __str__(self):
         return self.title
